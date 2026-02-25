@@ -1,4 +1,4 @@
-# Real-Time Freight &amp; Fuel Lakehouse 
+# Real-Time Freight & Fuel Lakehouse 
 
 **Databricks | Spark Structured Streaming | Delta Lake | Kafka | AWS-Ready**
 
