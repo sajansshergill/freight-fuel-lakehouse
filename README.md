@@ -2,6 +2,36 @@
 
 **Databricks | Spark Structured Streaming | Delta Lake | Kafka | AWS-Ready**
 
+![Freight Fuel Lakehouse demo](docs/demo.gif)
+
+## The console
+
+The Gold layer is served by an interactive ops console (`app/dashboard.py`, Streamlit + Plotly):
+
+- **Live sidebar filters** — date range, carriers, lanes, a fuel-anomalies-only
+  toggle and a minimum-gallons threshold; every chart, table and KPI re-renders
+  instantly from the filtered Gold facts.
+- **KPI cards with deltas** — filtered fuel spend vs. the prior equal-length
+  period, on-time delivery %, fuel spend per mile, anomaly count and gallons.
+- **Animated charts** — Plotly `animation_frame` views: daily fuel spend by
+  lane and a cumulative spend race you can play, plus an animated load-lifecycle
+  mix (created → assigned → picked_up → delivered).
+- **3D fleet space** — a rotatable `Scatter3d` of GPS pings in
+  longitude × latitude × speed space over the lane corridors, and a
+  lane × date **surface terrain** of fuel spend (drag to orbit, scroll to zoom).
+- **The Gold logic, visible** — `gold_kpi_daily_ops` as a daily operating
+  picture, the `gold_fact_fuel_txn` anomaly rule drawn on the data
+  (gallons > 80, or amount ≠ gallons × price), and driver utilization from
+  `gold_fact_driver_movement` (est. miles = avg speed × hours observed).
+- **Dark UI** — gradient hero header, glass KPI cards and a custom
+  dark theme (`.streamlit/config.toml` + inline CSS).
+
+The console runs standalone: `streamlit run app/dashboard.py`. It reads the
+repo's Gold schemas and applies the same transformations as
+`src/batch/build_gold_tables.py` and `src/batch/kpi_daily_ops.py`; with no
+live Kafka/Spark stack running it serves a deterministic demo dataset built
+from the producers' own distributions in `src/producers/`.
+
 ## Executive Summary
 This project demonstrates my ability to design and implement a **cloud ready, real-time data lakehouse** that supoorts operational analytics in the transportation and logistics domain.
 
